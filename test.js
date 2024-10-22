@@ -1,74 +1,108 @@
 const functions = require('./functions.js');
 const assert = require('assert');
 
-it('Проверка пустой почты', () => {
-    assert.equal(functions.validateEmail(""), false);
+describe('Email Validation', () => {
+    it('should return false for empty email', () => {
+        const email = "";
+        const result = functions.validateEmail(email);
+        assert.equal(result, false);
+    });
+
+    it('should return true for valid email 1', () => {
+        const email = "igorlov2604@gmail.com";
+        const result = functions.validateEmail(email);
+        assert.equal(result, true);
+    });
+
+    it('should return true for valid email 2', () => {
+        const email = "igorlov2604@mail.ru";
+        const result = functions.validateEmail(email);
+        assert.equal(result, true);
+    });
+
+    it('should return false for invalid email 1', () => {
+        const email = "igorlov2604#gmail.com";
+        const result = functions.validateEmail(email);
+        assert.equal(result, false);
+    });
+
+    it('should return false for invalid email 2', () => {
+        const email = "igorlov2604@.com";
+        const result = functions.validateEmail(email);
+        assert.equal(result, false);
+    });
+
+    it('should return false for invalid email 3', () => {
+        const email = "igorlov2604@gmail.";
+        const result = functions.validateEmail(email);
+        assert.equal(result, false);
+    });
+
+    it('should return false for invalid email 4', () => {
+        const email = "igorlov2604@.";
+        const result = functions.validateEmail(email);
+        assert.equal(result, false);
+    });
+
+    it('should return false for invalid email 5', () => {
+        const email = "@.";
+        const result = functions.validateEmail(email);
+        assert.equal(result, false);
+    });
 });
 
-it('Тестирование существующей почты 1', () => {
-    assert.equal(functions.validateEmail("igorlov2604@gmail.com"), true);
+describe('Phone Validation', () => {
+    it('should return false for empty phone number', () => {
+        const phone = "";
+        const result = functions.validatePhone(phone);
+        assert.equal(result, false);
+    });
+
+    it('should return true for valid phone number 1', () => {
+        const phone = "+79523096126";
+        const result = functions.validatePhone(phone);
+        assert.equal(result, true);
+    });
+
+    it('should return true for valid phone number 2', () => {
+        const phone = "+7 952 309 61 26";
+        const result = functions.validatePhone(phone);
+        assert.equal(result, true);
+    });
+
+    it('should return true for valid phone number 3', () => {
+        const phone = "+7-952-309-61-26";
+        const result = functions.validatePhone(phone);
+        assert.equal(result, true);
+    });
+
+    it('should return true for valid phone number 4', () => {
+        const phone = "+7 (952)-309-61-26";
+        const result = functions.validatePhone(phone);
+        assert.equal(result, true);
+    });
+
+    it('should return true for valid phone number 5', () => {
+        const phone = "8 (952)-309-61-26";
+        const result = functions.validatePhone(phone);
+        assert.equal(result, true);
+    });
+
+    it('should return false for invalid phone number 1', () => {
+        const phone = "+7 (952)-309-61-262";
+        const result = functions.validatePhone(phone);
+        assert.equal(result, false);
+    });
+
+    it('should return false for invalid phone number 2', () => {
+        const phone = "+7 ()-309-61-26";
+        const result = functions.validatePhone(phone);
+        assert.equal(result, false);
+    });
+
+    it('should return false for invalid phone number 3', () => {
+        const phone = "+7 (952)-309-61-sim";
+        const result = functions.validatePhone(phone);
+        assert.equal(result, false);
+    });
 });
-
-it('Тестирование существующей почты 2', () => {
-    assert.equal(functions.validateEmail("igorlov2604@mail.ru"), true);
-});
-
-it('Тестирование неверной почты 1', () => {
-    assert.equal(functions.validateEmail("igorlov2604#gmail.com"), false);
-});
-
-it('Тестирование неверной почты 2', () => {
-    assert.equal(functions.validateEmail("igorlov2604@.com"), false);
-});
-
-it('Тестирование неверной почты 3', () => {
-    assert.equal(functions.validateEmail("igorlov2604@gmail."), false);
-});
-
-it('Тестирование неверной почты 4', () => {
-    assert.equal(functions.validateEmail("igorlov2604@."), false);
-});
-
-it('Тестирование неверной почты 5', () => {
-    assert.equal(functions.validateEmail("@."), false);
-});
-
-it('Тестирование пустого номера', () => {
-    assert.equal(functions.validatePhone(""), false);
-});
-
-it('Тестирование существующего номера 1', () => {
-    assert.equal(functions.validatePhone("+79523096126"), true);
-});
-
-it('Тестирование существующего номера 2', () => {
-    assert.equal(functions.validatePhone("+7 952 309 61 26"), true);
-});
-
-it('Тестирование существующего номера 3', () => {
-    assert.equal(functions.validatePhone("+7-952-309-61-26"), true);
-});
-
-it('Тестирование существующего номера 4', () => {
-    assert.equal(functions.validatePhone("+7 (952)-309-61-26"), true);
-});
-
-it('Тестирование существующего номера 5', () => {
-    assert.equal(functions.validatePhone("8 (952)-309-61-26"), true);
-});
-
-it('Тестирование несуществующего номера 1', () => {
-    assert.equal(functions.validatePhone("+7 (952)-309-61-262"), false);
-});
-
-it('Тестирование несуществующего номера 2', () => {
-    assert.equal(functions.validatePhone("+7 ()-309-61-26"), false);
-});
-
-it('Тестирование несуществующего номера 3', () => {
-    assert.equal(functions.validatePhone("+7 (952)-309-61-sim"), false);
-})
-
-
-
-
